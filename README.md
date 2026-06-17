@@ -46,7 +46,7 @@ Don't just guess why you're lagging. Vaslim? allows you to select specific game 
 
 ## 📥 Installation
 
-1. Go to the [**Releases**](./releases) section of this repository.
+1. Go to the [**Releases**](https://github.com/hesamking138/Vaslim/releases) section of this repository.
 2. Download the Vaslim-setup.exe
 3. Run the installer and follow the on-screen instructions.
 
