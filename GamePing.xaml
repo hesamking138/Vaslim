@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+          xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+          x:Class="Vaslim.GamePing"
+          BackgroundColor="#0A0A0C">
+
+    <Grid ColumnDefinitions="260,*">
+
+        <!-- SIDEBAR -->
+        <Border Grid.Column="0"
+            BackgroundColor="#111116"
+            StrokeThickness="0">
+
+            <VerticalStackLayout Padding="20">
+
+                <Label Text="// SELECT_GAME"
+                   FontSize="14"
+                   FontAttributes="Bold"
+                   TextColor="#565F89"
+                   Margin="0,0,0,20"/>
+
+                <CollectionView x:Name="GameSelectorList"
+                            SelectionMode="Single"
+                            SelectionChanged="OnGameSelected">
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Padding="10,8">
+                                <Label Text="{Binding GameTitle}"
+                                   FontSize="14"
+                                   FontAttributes="Bold"
+                                   TextColor="Azure" />
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+
+                </CollectionView>
+
+            </VerticalStackLayout>
+        </Border>
+
+        <!-- MAIN CONTENT -->
+        <Grid Grid.Column="1"
+          Padding="40">
+
+            <Grid RowDefinitions="Auto,*"
+              IsVisible="{Binding IsGameSelected}">
+
+                <!-- HEADER -->
+                <Label Grid.Row="0"
+                   x:Name="LblCurrentGameTitle"
+                   Text="// SERVER_LATENCY"
+                   FontSize="18"
+                   TextColor="#7AA2F7"
+                   HorizontalOptions="Center"
+                   Margin="0,0,0,20"/>
+
+                <!-- SERVER LIST -->
+                <CollectionView Grid.Row="1"
+                            x:Name="ServerList"
+                            VerticalOptions="Fill"
+                            HorizontalOptions="Fill">
+
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical"
+                                       ItemSpacing="10" />
+                    </CollectionView.ItemsLayout>
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+
+                            <Border BackgroundColor="#16161E"
+                                Stroke="#292E42"
+                                StrokeThickness="1"
+                                Padding="20">
+
+                                <Grid ColumnDefinitions="*,Auto,Auto">
+
+                                    <VerticalStackLayout Grid.Column="0"
+                                                     VerticalOptions="Center">
+
+                                        <Label Text="{Binding Name}"
+                                           FontSize="16"
+                                           FontAttributes="Bold"
+                                           TextColor="#C0CAF5"/>
+
+                                        <Label Text="{Binding Region}"
+                                           FontSize="12"
+                                           TextColor="#565F89"/>
+
+                                    </VerticalStackLayout>
+
+                                    <VerticalStackLayout Grid.Column="1"
+                                                     VerticalOptions="Center"
+                                                     HorizontalOptions="Center"
+                                                     Margin="30,0">
+
+                                        <Label Text="{Binding PingValue, StringFormat='{0} ms'}"
+                                           FontSize="24"
+                                           FontAttributes="Bold"
+                                           TextColor="{Binding PingColor}" />
+
+                                        <Label Text="LATENCY"
+                                           FontSize="10"
+                                           TextColor="#565F89"
+                                           HorizontalOptions="Center"/>
+
+                                    </VerticalStackLayout>
+
+                                    <Ellipse Grid.Column="2"
+                                         WidthRequest="12"
+                                         HeightRequest="12"
+                                         VerticalOptions="Center"
+                                         Fill="{Binding StatusColor}" />
+
+                                </Grid>
+
+                            </Border>
+
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+
+                </CollectionView>
+
+            </Grid>
+
+            <!-- EMPTY STATE -->
+            <Label x:Name="LblEmptyState"
+               Text="PLEASE_SELECT_A_GAME"
+               FontSize="18"
+               TextColor="#565F89"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"/>
+
+        </Grid>
+
+    </Grid>
+</ContentPage>

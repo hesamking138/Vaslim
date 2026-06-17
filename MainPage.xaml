@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Vaslim.MainPage"
+             BackgroundColor="#0A0A0C">
+
+    <Grid ColumnDefinitions="260, *" RowDefinitions="*, 80">
+
+        <!-- SIDEBAR: LIVE MONITOR -->
+        <VerticalStackLayout Grid.Column="0" Grid.RowSpan="2" BackgroundColor="#111116" Padding="20">
+            <Label Text="// LIVE_MONITOR" FontSize="14" TextColor="#565F89" FontAttributes="Bold" Margin="0,0,0,20"/>
+
+            <CollectionView x:Name="SiteMonitorList">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <!-- FIXED: Removed Spacing from Grid and used ColumnDefinitions to create space -->
+                        <Grid ColumnDefinitions="30, *">
+                            <Ellipse Grid.Column="0" 
+                                     WidthRequest="10" 
+                                     HeightRequest="10" 
+                                     VerticalOptions="Center"
+                                     Fill="{Binding StatusColor}" />
+
+                            <Label Grid.Column="1" 
+                                   Text="{Binding Name}" 
+                                   FontSize="12" 
+                                   TextColor="#C0CAF5" 
+                                   VerticalOptions="Center"
+                                   Margin="10,0,0,0"/>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+
+        <!-- MAIN VIEW AREA -->
+        <Grid Grid.Column="1" Grid.Row="0" Padding="40">
+            <Label Text="// NETWORK_DIAGNOSTIC_TOOL" VerticalOptions="Start" HorizontalOptions="Center" 
+                   TextColor="#7AA2F7" FontSize="18" Margin="0,0,0,50" />
+
+            <Grid ColumnDefinitions="*, *, *" RowDefinitions="*, *, *" 
+                  MaximumWidthRequest="900" MaximumHeightRequest="500"
+                  VerticalOptions="Center" HorizontalOptions="Center">
+
+                <!-- HTTP(S) CONNECTIVITY CARD -->
+                <Border Grid.Row="0" Grid.ColumnSpan="3" Margin="10" Padding="20" BackgroundColor="#16161E" Stroke="#7AA2F7" StrokeThickness="1">
+                    <Grid ColumnDefinitions="*, *, *" RowDefinitions="Auto, Auto">
+                        <Label Text="HTTP(S) GLOBAL CONNECTIVITY" Grid.ColumnSpan="3" FontSize="12" TextColor="#565F89"/>
+                        <VerticalStackLayout Grid.Row="1" Grid.Column="0">
+                            <Label Text="STATUS" FontSize="10" TextColor="#565F89"/>
+                            <Label x:Name="LblInternetStatus" Text="--" FontSize="24" FontAttributes="Bold" TextColor="#C0CAF5"/>
+                        </VerticalStackLayout>
+                        <VerticalStackLayout Grid.Row="1" Grid.Column="1">
+                            <Label Text="SPEED (DL/UL)" FontSize="10" TextColor="#565F89"/>
+                            <Label x:Name="LblSpeed" Text="0 / 0 Mbps" FontSize="20" FontAttributes="Bold" TextColor="#C0CAF5"/>
+                        </VerticalStackLayout>
+                        <VerticalStackLayout Grid.Row="1" Grid.Column="2">
+                            <Label Text="DATA EXCHANGED" FontSize="10" TextColor="#565F89"/>
+                            <Label x:Name="LblDataExchanged" Text="0 Kb" FontSize="20" FontAttributes="Bold" TextColor="#C0CAF5"/>
+                        </VerticalStackLayout>
+                    </Grid>
+                </Border>
+
+                <!-- Card 1: ICMP -->
+                <Border Grid.Row="1" Grid.Column="0" Margin="10" Padding="20" BackgroundColor="#16161E" Stroke="#292E42" StrokeThickness="1">
+                    <VerticalStackLayout>
+                        <Label Text="ICMP (PING)" FontSize="12" TextColor="#565F89"/>
+                        <Label x:Name="LblPing" Text="-- ms" FontSize="28" FontAttributes="Bold" TextColor="#C0CAF5"/>
+                        <Label x:Name="SubPing" Text="Ready" FontSize="12" TextColor="#565F89"/>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Card 2: TCP -->
+                <Border Grid.Row="1" Grid.Column="1" Margin="10" Padding="20" BackgroundColor="#16161E" Stroke="#292E42" StrokeThickness="1">
+                    <VerticalStackLayout>
+                        <Label Text="TCP HANDSHAKE" FontSize="12" TextColor="#565F89"/>
+                        <Label x:Name="LblTcp" Text="--" FontSize="28" FontAttributes="Bold" TextColor="#C0CAF5"/>
+                        <Label x:Name="SubTcp" Text="Port 80 status" FontSize="12" TextColor="#565F89"/>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Card 3: UDP HANDSHAKE -->
+                <Border Grid.Row="1" Grid.Column="2" Margin="10" Padding="20" BackgroundColor="#16161E" Stroke="#292E42" StrokeThickness="1">
+                    <VerticalStackLayout>
+                        <Label Text="UDP" FontSize="12" TextColor="#565F89"/>
+                        <Label x:Name="LblUdpHandshake" Text="--" FontSize="28" FontAttributes="Bold" TextColor="#C0CAF5"/>
+                        <Label x:Name="SubUdp" Text="Port" FontSize="12" TextColor="#565F89"/>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Card 4: DNS -->
+                <Border Grid.Row="2" Grid.Column="0" Margin="10" Padding="20" BackgroundColor="#16161E" Stroke="#292E42" StrokeThickness="1">
+                    <VerticalStackLayout>
+                        <Label Text="DNS RESOLUTION" FontSize="12" TextColor="#565F89"/>
+                        <Label x:Name="LblDns" Text="--" FontSize="28" FontAttributes="Bold" TextColor="#C0CAF5"/>
+                        <Label x:Name="SubDns" Text="Latency/IP" FontSize="12" TextColor="#565F89"/>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Card 5: PUBLIC IP -->
+                <Border Grid.Row="2" Grid.Column="1" Margin="10" Padding="20" BackgroundColor="#16161E" Stroke="#292E42" StrokeThickness="1">
+                    <VerticalStackLayout>
+                        <Label Text="PUBLIC IP" FontSize="12" TextColor="#565F89"/>
+                        <Label x:Name="LblPublicIp" Text="0.0.0.0" FontSize="22" FontAttributes="Bold" TextColor="#C0CAF5"/>
+                        <Label x:Name="SubPubIp" Text="External Interface" FontSize="12" TextColor="#565F89"/>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Card 6: LOCAL IP -->
+                <Border Grid.Row="2" Grid.Column="2" Margin="10" Padding="20" BackgroundColor="#16161E" Stroke="#292E42" StrokeThickness="1">
+                    <VerticalStackLayout>
+                        <Label Text="LOCAL IP" FontSize="12" TextColor="#565F89"/>
+                        <Label x:Name="LblLocalIp" Text="0.0.0.0" FontSize="22" FontAttributes="Bold" TextColor="#C0CAF5"/>
+                        <Label x:Name="SubLocIp" Text="Internal Interface" FontSize="12" TextColor="#565F89"/>
+                    </VerticalStackLayout>
+                </Border>
+            </Grid>
+        </Grid>
+
+        <!-- FOOTER -->
+        <Border Grid.Column="1" Grid.Row="1" BackgroundColor="#16161E" Stroke="#292E42" StrokeThickness="1" StrokeShape="Rectangle">
+            <HorizontalStackLayout HorizontalOptions="Center" Spacing="20" VerticalOptions="Center">
+                <Picker x:Name="DnsPicker" Title="Select DNS" WidthRequest="150" TextColor="#C0CAF5">
+                    <Picker.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>Google</x:String>
+                            <x:String>Cloudflare</x:String>
+                            <x:String>Quad9</x:String>
+                        </x:Array>
+                    </Picker.ItemsSource>
+                </Picker>
+                <Button x:Name="BtnTest" Text="RUN_TEST_SEQUENCE" 
+                        Clicked="OnRunTestClicked"
+                        BackgroundColor="#7AA2F7" TextColor="#0A0A0C" 
+                        CornerRadius="0" Padding="30,0"/>
+            </HorizontalStackLayout>
+        </Border>
+
+    </Grid>
+</ContentPage>
