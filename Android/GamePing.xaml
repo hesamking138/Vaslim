@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Vaslim.GamePing"
+             BackgroundColor="#0A0A0C"
+             FlowDirection="LeftToRight">
+
+    <Grid>
+        <!-- LAYER 1: MAIN CONTENT -->
+        <Grid Padding="20, 60, 20, 90">
+            <Grid RowDefinitions="Auto, *">
+                <!-- Header -->
+                <Label Grid.Row="0" x:Name="LblCurrentGameTitle"
+                       Text="// SELECT_A_GAME" FontSize="20"
+                       TextColor="#7AA2F7" HorizontalOptions="Center" 
+                       Margin="0,0,0,20"/>
+
+                <!-- Content Area -->
+                <Grid Grid.Row="1">
+                    <!-- Server List -->
+                    <CollectionView x:Name="ServerList" IsVisible="False">
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout Orientation="Vertical" ItemSpacing="10" />
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Border BackgroundColor="#16161E" Stroke="#292E42" Padding="15">
+                                    <Grid ColumnDefinitions="*, Auto, Auto">
+                                        <VerticalStackLayout Grid.Column="0">
+                                            <Label Text="{Binding Name}" FontSize="16" FontAttributes="Bold" TextColor="#C0CAF5"/>
+                                            <Label Text="{Binding Region}" FontSize="12" TextColor="#565F89"/>
+                                        </VerticalStackLayout>
+                                        <VerticalStackLayout Grid.Column="1" HorizontalOptions="Center" Margin="10,0">
+                                            <Label Text="{Binding PingValue, StringFormat='{0} ms'}" FontSize="20" FontAttributes="Bold" TextColor="{Binding PingColor}" />
+                                            <Label Text="LATENCY" FontSize="9" TextColor="#565F89" HorizontalOptions="Center"/>
+                                        </VerticalStackLayout>
+                                        <Ellipse Grid.Column="2" WidthRequest="10" HeightRequest="10" VerticalOptions="Center" Fill="{Binding StatusColor}" />
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
+                    <!-- Empty State -->
+                    <Label x:Name="LblEmptyState" Text="PLEASE_SELECT_A_GAME" 
+                           FontSize="16" TextColor="#565F89" HorizontalOptions="Center" VerticalOptions="Center"/>
+                </Grid>
+            </Grid>
+        </Grid>
+
+        <!-- LAYER 2: FLOATING ACTION BUTTON (Placed here so it's behind the dimmer) -->
+        <Button Text="LIST GAMES" 
+                Clicked="OnHamburgerClicked"
+                VerticalOptions="Start"
+                HorizontalOptions="Center"
+                Margin="0,10,0,0"
+                WidthRequest="160"
+                HeightRequest="45"
+                BackgroundColor="#292E42"
+                TextColor="#7AA2F7"
+                CornerRadius="2"
+                FontSize="14"
+                FontAttributes="Bold"/>
+
+        <!-- LAYER 3: THE OVERLAY (MenuDimmer) -->
+        <!-- This is last in the XAML, so it will ALWAYS appear on top of everything else -->
+        <Grid x:Name="MenuDimmer" 
+              IsVisible="False" 
+              BackgroundColor="#CC000000">
+
+            <!-- Tap the dark area to close -->
+            <Grid.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnCloseSidebarClicked"/>
+            </Grid.GestureRecognizers>
+
+            <!-- THE FLOATING CARD -->
+            <Border VerticalOptions="Center" 
+                    HorizontalOptions="Center"
+                    WidthRequest="240" 
+                    HeightRequest="400"
+                    Stroke="#7AA2F7" 
+                    StrokeThickness="1"
+                    StrokeShape="RoundRectangle 25">
+
+                <!-- Fix for "Leaking" edges: Use Brush instead of BackgroundColor -->
+                <Border.Background>
+                    <SolidColorBrush Color="#16161E" />
+                </Border.Background>
+
+                <Grid>
+                    <VerticalStackLayout Padding="25,20" Spacing="12">
+                        <!-- The Top Decorative Line -->
+                        <BoxView HeightRequest="3" 
+                                 WidthRequest="40" 
+                                 Color="Red" 
+                                 HorizontalOptions="Center"/>
+
+                        <!-- Subtitle Label -->
+                        <Label Text="// SELECT_GAME" 
+                               FontSize="11" 
+                               FontAttributes="Bold" 
+                               TextColor="#565F89" 
+                               HorizontalOptions="Center" 
+                               Margin="0,0,0,5"/>
+
+                        <!-- The List -->
+                        <CollectionView x:Name="GameSelectorList" 
+                                        SelectionMode="Single" 
+                                        SelectionChanged="OnGameSelected">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid Padding="10,8">
+                                        <Label Text="{Binding GameTitle}" 
+                                               FontSize="14" 
+                                               TextColor="#C0CAF5" 
+                                               HorizontalOptions="Center" 
+                                               VerticalOptions="Center" />
+                                    </Grid>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </VerticalStackLayout>
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
+</ContentPage>

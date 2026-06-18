@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Vaslim.MainPage"
+             BackgroundColor="#0A0A0C"
+             Title="Diagnostics"
+             FlowDirection="LeftToRight">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="15" Spacing="15">
+
+            <Label Text="// NETWORK_DIAGNOSTIC_TOOL" HorizontalOptions="Center" 
+                   TextColor="#7AA2F7" FontSize="18" Margin="0,10,0,10" />
+
+            <!-- TOP CARD: CONNECTIVITY (Full Width) -->
+            <Border Padding="20" BackgroundColor="#16161E" Stroke="#7AA2F7" StrokeThickness="1">
+                <Grid ColumnDefinitions="*, *, *" RowDefinitions="Auto, Auto">
+                    <Label Text="HTTP(S) GLOBAL CONNECTIVITY" Grid.ColumnSpan="3" FontSize="10" TextColor="#565F89"/>
+                    <VerticalStackLayout Grid.Row="1" Grid.Column="0">
+                        <Label Text="STATUS" FontSize="9" TextColor="#565F89"/>
+                        <Label x:Name="LblInternetStatus" Text="--" FontSize="20" FontAttributes="Bold" TextColor="#C0CAF5"/>
+                    </VerticalStackLayout>
+                    <VerticalStackLayout Grid.Row="1" Grid.Column="1">
+                        <Label Text="SPEED" FontSize="9" TextColor="#565F89"/>
+                        <Label x:Name="LblSpeed" Text="0/0 Mbps" FontSize="18" FontAttributes="Bold" TextColor="#C0CAF5"/>
+                    </VerticalStackLayout>
+                    <VerticalStackLayout Grid.Row="1" Grid.Column="2">
+                        <Label Text="DATA" FontSize="9" TextColor="#565F89"/>
+                        <Label x:Name="LblDataExchanged" Text="0 KB" FontSize="18" FontAttributes="Bold" TextColor="#C0CAF5"/>
+                    </VerticalStackLayout>
+                </Grid>
+            </Border>
+
+            <!-- CARDS CONTAINER: Uses FlexLayout to wrap on mobile -->
+            <FlexLayout x:Name="CardsContainer" Wrap="Wrap" JustifyContent="SpaceEvenly">
+
+                <!-- ICMP Card -->
+                <Border WidthRequest="160" Margin="5" Padding="15" BackgroundColor="#16161E" Stroke="#292E42" StrokeThickness="1">
+                    <VerticalStackLayout>
+                        <Label Text="ICMP (PING)" FontSize="11" TextColor="#565F89"/>
+                        <Label x:Name="LblPing" Text="-- ms" FontSize="24" FontAttributes="Bold" TextColor="#C0CAF5"/>
+                        <Label x:Name="SubPing" Text="Ready" FontSize="10" TextColor="#565F89"/>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- TCP Card -->
+                <Border WidthRequest="160" Margin="5" Padding="15" BackgroundColor="#16161E" Stroke="#292E42" StrokeThickness="1">
+                    <VerticalStackLayout>
+                        <Label Text="TCP HANDSHAKE" FontSize="11" TextColor="#565F89"/>
+                        <Label x:Name="LblTcp" Text="--" FontSize="24" FontAttributes="Bold" TextColor="#C0CAF5"/>
+                        <Label x:Name="SubTcp" Text="Port 80 status" FontSize="10" TextColor="#565F89"/>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- UDP Card -->
+                <Border WidthRequest="160" Margin="5" Padding="15" BackgroundColor="#16161E" Stroke="#292E42" StrokeThickness="1">
+                    <VerticalStackLayout>
+                        <Label Text="UDP" FontSize="11" TextColor="#565F89"/>
+                        <Label x:Name="LblUdpHandshake" Text="--" FontSize="24" FontAttributes="Bold" TextColor="#C0CAF5"/>
+                        <Label x:Name="SubUdp" Text="Port" FontSize="10" TextColor="#565F89"/>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- DNS Card -->
+                <Border WidthRequest="160" Margin="5" Padding="15" BackgroundColor="#16161E" Stroke="#292E42" StrokeThickness="1">
+                    <VerticalStackLayout>
+                        <Label Text="DNS RESOLUTION" FontSize="11" TextColor="#565F89"/>
+                        <Label x:Name="LblDns" Text="--" FontSize="20" FontAttributes="Bold" TextColor="#C0CAF5"/>
+                        <Label x:Name="SubDns" Text="Latency/IP" FontSize="10" TextColor="#565F89"/>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- PUBLIC IP Card -->
+                <Border WidthRequest="160" Margin="5" Padding="15" BackgroundColor="#16161E" Stroke="#292E42" StrokeThickness="1">
+                    <VerticalStackLayout>
+                        <Label Text="PUBLIC IP" FontSize="11" TextColor="#565F89"/>
+                        <Label x:Name="LblPublicIp" Text="0.0.0.0" FontSize="20" FontAttributes="Bold" TextColor="#C0CAF5"/>
+                        <Label x:Name="SubPubIp" Text="External" FontSize="10" TextColor="#565F89"/>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- LOCAL IP Card -->
+                <Border WidthRequest="160" Margin="5" Padding="15" BackgroundColor="#16161E" Stroke="#292E42" StrokeThickness="1">
+                    <VerticalStackLayout>
+                        <Label Text="LOCAL IP" FontSize="11" TextColor="#565F89"/>
+                        <Label x:Name="LblLocalIp" Text="0.0.0.0" FontSize="20" FontAttributes="Bold" TextColor="#C0CAF5"/>
+                        <Label x:Name="SubLocIp" Text="Internal" FontSize="10" TextColor="#565F89"/>
+                    </VerticalStackLayout>
+                </Border>
+
+            </FlexLayout>
+
+            <!-- TEST CONTROLS -->
+            <Border Margin="0,20,0,40" Padding="15" BackgroundColor="#16161E" Stroke="#292E42" StrokeThickness="1">
+                <VerticalStackLayout Spacing="15">
+                    <Picker x:Name="DnsPicker" Title="Select DNS" TextColor="#C0CAF5">
+                        <Picker.ItemsSource>
+                            <x:Array Type="{x:Type x:String}">
+                                <x:String>Google</x:String>
+                                <x:String>Cloudflare</x:String>
+                                <x:String>Quad9</x:String>
+                            </x:Array>
+                        </Picker.ItemsSource>
+                    </Picker>
+                    <Button x:Name="BtnTest" Text="RUN_TEST_SEQUENCE" 
+                            Clicked="OnRunTestClicked"
+                            BackgroundColor="#7AA2F7" TextColor="#0A0A0C" 
+                            CornerRadius="5" HeightRequest="50"/>
+                </VerticalStackLayout>
+            </Border>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

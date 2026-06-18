@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="Vaslim.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:Vaslim"
+    Shell.NavBarIsVisible="True"
+    FlowDirection="LeftToRight"
+    Title="Vaslim?">
+
+    <Shell.Resources>
+        <ResourceDictionary>
+            <!-- 1. This controls the Background of the Nav Bar -->
+            <Style TargetType="Shell" ApplyToDerivedTypes="True">
+                <Setter Property="Shell.BackgroundColor" Value="#0A0A0C" />
+                <Setter Property="Shell.ForegroundColor" Value="#7AA2F7" />
+                <!-- Color of Hamburger icon & Title text -->
+                <Setter Property="Shell.TitleColor" Value="#7AA2F7" />
+                <!-- Color of the Page Title -->
+            </Style>
+        </ResourceDictionary>
+    </Shell.Resources>
+
+    <ShellContent
+        Title="// CONNETION_TEST"
+        ContentTemplate="{DataTemplate local:MainPage}"
+        Route="MainPage" />
+
+    <ShellContent
+        Title="// LIVE_MONITOR"
+        ContentTemplate="{DataTemplate local:NotSidebar}"
+        Route="NotSidebar" />
+
+    <ShellContent
+        Title="// GAME_SERVER"
+        ContentTemplate="{DataTemplate local:GamePing}"
+        Route="GamePing" />
+
+</Shell>
