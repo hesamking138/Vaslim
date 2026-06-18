@@ -29,11 +29,12 @@ Don't just guess why you're lagging. Vaslim? allows you to select specific game 
 ---
 
 ## 🖥️ Interface Preview
-### 📟 Main Page 
-![Main_Page](https://github.com/hesamking138/Vaslim/blob/main/Repo%20assets/MainPage.png)
 
-### 📍 Game server ping
-![Game_Ping](https://github.com/hesamking138/Vaslim/blob/main/Repo%20assets/GamePing.png)
+### 📱 Android
+![Android](https://github.com/hesamking138/Vaslim/blob/main/Repo%20assets/Android.jpg)
+
+### 🪟 Windows
+![Windows](https://github.com/hesamking138/Vaslim/blob/main/Repo%20assets/MainPage.png)
 
 ---
 
