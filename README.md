@@ -31,7 +31,7 @@ Don't just guess why you're lagging. Vaslim? allows you to select specific game 
 ## 🖥️ Interface Preview
 
 ### 📱 Android
-![Android](https://github.com/hesamking138/Vaslim/blob/main/Repo%20assets/Android.jpg)
+![Android](https://github.com/hesamking138/Vaslim/blob/main/Repo%20assets/Android-small.jpg)
 
 ### 🪟 Windows
 ![Windows](https://github.com/hesamking138/Vaslim/blob/main/Repo%20assets/MainPage.png)
